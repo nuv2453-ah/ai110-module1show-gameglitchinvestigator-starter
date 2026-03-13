@@ -4,38 +4,31 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+The first time I ran the game, it looked like a simple number guessing game with a sidebar for difficulty and some debug info showing the secret number, attempts, and score. Right away, I noticed that the hints sometimes told me to “Go HIGHER!” even when I guessed the secret number correctly, which was confusing. Another issue was that the scoring system seemed inconsistent; sometimes I gained points for wrong guesses, and other times I lost points unexpectedly. Finally, starting a new game didn’t fully reset everything - my previous score and guess history stayed, making the game feel glitchy and unfair. Overall, the game ran without crashing, but these logic and state issues made the experience unpredictable.
 
----
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+I primarily used GitHub Copilot in VS Code and occasionally referenced ChatGPT to understand tricky parts of the code. One helpful suggestion from Copilot was explaining why the hints were inconsistent: it correctly pointed out that the code converts the secret number to a string on even attempts, causing the comparison to fail and trigger misleading messages. I verified this by looking at the check_guess function and seeing that it falls back to comparing strings instead of integers. One misleading suggestion was when Copilot recommended always converting the user’s guess to a string to fix the hint issue; I tested it and saw that it created even more inconsistent behavior because now numbers and strings were being compared incorrectly. This taught me that AI suggestions still need careful testing and reasoning.
+
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+To know if a bug was fixed, I decided to play the game multiple times with different guesses and watch whether the hints, scores, and resets behaved consistently. For example, I tested the hint logic manually by guessing the correct number on the first attempt, then on even and odd attempts, and verified that the hints always reflected whether I should go higher or lower. This showed me that the string conversion issue was resolved. AI helped me design the manual tests by suggesting edge cases, such as checking behavior on the last attempt or after clicking “New Game,” which ensured that all session state variables were correctly reset.
+
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+I learned that Streamlit reruns the script from top to bottom every time a user interacts with an input or button, which is why session state is crucial for storing persistent data like the secret number, score, and attempts. Without st.session_state, every button press would reset the game to the initial state, losing all progress. I would explain this to a friend by saying, “Streamlit reruns your code every time something changes, so if you want things to remember their values, you have to put them in session state like a tiny database that lives during the session.”
+
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+One habit I want to reuse is systematically documenting observed glitches before trying to fix them, including the expected behavior versus the actual behavior. It made debugging much more structured and helped me communicate problems clearly. Next time I work with AI, I would test AI suggestions more cautiously and verify them step by step instead of blindly accepting them. This project changed the way I think about AI-generated code by showing me that AI can speed up understanding and give ideas, but human judgment is absolutely essential for spotting logic errors, testing edge cases, and ensuring reliability.
+
