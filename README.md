@@ -25,13 +25,23 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] Describe the game's purpose.
+The game challenges players to guess a secret number within a limited number of attempts. Difficulty settings control the number range and attempt limit.
+- [x] Detail which bugs you found.
+Hints were incorrect (“Higher” shown when guess was actually lower).
+Secret number and scores reset unexpectedly due to Streamlit reruns.
+Score updates were inconsistent and history did not always reset on a new game.
+- [x] Explain what fixes you applied.
+Refactored check_guess, parse_guess, and update_score into logic_utils.py.
+Used st.session_state to persist the secret number, attempts, score, and history.
+Corrected conditional logic in check_guess so hints now match guesses.
+Added pytest cases to confirm high/low/correct outcomes and score updates.
+
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+- [x] [Insert a screenshot of your fixed, winning game here]
+![alt text](image.png)
 
 ## 🚀 Stretch Features
 
